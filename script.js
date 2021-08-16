@@ -1,36 +1,29 @@
 const Ship = function Ship(length, ...coords) {
-    let health = length;
-    const getHealth = () => health;
-    //Set location property 
-    // let location = []
-    // coords.forEach(e => {
-        //      location.push(e = Location(e))
-        // })
-        
-        
-        // const addLocation = (Ship, coords) => {
-            //     Ship.coords = 1
-            // }
-            
-            
-            const isSunk = () => {
-                if (health === 0) console.log("Ship is sunk"); 
-                return (health === 0);  
-            };
-            const hit = () => health-- ;
-            return {getHealth, isSunk, hit, location, coords};
-        }
-        
-const addLocation = function addLocation(ship, ...coords) {
+    //Set location object property
+    let location = [];
     const Location = function Location(coord) {
-        const location = coord;
-        status = 1;
-        return {status, location}
-    }
-    coords.forEach(e => {
-        ship.e = Location(e)
-    })
+        const area = coord;
+        let status = 1;
+        return {area, status}
+    };
+    coords.forEach(e => location.push(e = Location(e)));
+    const getHealth = () => {
+        let health = []
+        location.forEach(e => health.push(e.status));
+        health = health.reduce((sum, amount) => sum + amount);
+        return health;
+    };
+    const isSunk = () => {
+        if (getHealth() === 0) console.log("Ship is sunk"); 
+        return (getHealth() === 0);  
+    };
+    const hit = (coord) => {
+        matchedArea = location.filter(e => e.area == coord);
+        matchedArea[0].status = 0;
+    } ;
+    return {getHealth, isSunk, hit, location, coords};
 }
+        
 
 const Gameboard = function Gameboard() {
     let totalShips = []; //stores all Ship objects
@@ -66,8 +59,9 @@ const renderCoords = function renderCoordinates() {
 const shipOne = Ship(2, 'A1', 'B2', 'A3')
  console.log(shipOne)
 
-shipTest = addLocation(Ship(2), 'A1', 'A2')
-console.log(shipTest)
 
-console.log(shipOne.location[1].location)
+shipOne.hit('A1')
+shipOne.hit('A3')
+console.log(shipOne.location)
+console.log(shipOne.getHealth())
 
