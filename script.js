@@ -7,26 +7,39 @@ const Ship = function Ship(length, ...coords) {
         return {area, status}
     };
     coords.forEach(e => location.push(e = Location(e)));
+    const hit = (coord) => {
+        hitArea = location.filter(e => e.area == coord);
+        hitArea[0].status = 0;
+    };
+    //Checks for Ship's overall health
     const getHealth = () => {
         let health = []
         location.forEach(e => health.push(e.status));
         health = health.reduce((sum, amount) => sum + amount);
         return health;
     };
+    //Checks for Ship's individual area health
+    const getStatus = (coord) => {
+        const area = location.filter(e => e.area == coord);
+        console.log(`Area:${area[0].area}'s hp is ${area[0].status}`)
+        return area[0].status;
+    }; 
     const isSunk = () => {
-        if (getHealth() === 0) console.log("Ship is sunk"); 
+        if (getHealth() === 0) console.log("Ship is sunk");//For debug
         return (getHealth() === 0);  
     };
-    const hit = (coord) => {
-        matchedArea = location.filter(e => e.area == coord);
-        matchedArea[0].status = 0;
-    } ;
-    return {getHealth, isSunk, hit, location, coords};
+    return {getHealth, getStatus, isSunk, hit, location, coords};
 }
         
-
 const Gameboard = function Gameboard() {
     let totalShips = []; //stores all Ship objects
+
+    const makeShip = (length, ...coords) => {
+        newShip = Ship(length, ...coords);
+        totalShips.push(newShip);
+    }
+
+    let validCoords = []; //stores coords of Ship' locations
 
     const receiveAttack = (coord) => {
         if (Ship.status === 0) {
@@ -39,6 +52,7 @@ const Gameboard = function Gameboard() {
             //missed 
         }
     }
+    return {};
 }
 
 //Generates all possible coordinates in a 10x10 
@@ -64,4 +78,5 @@ shipOne.hit('A1')
 shipOne.hit('A3')
 console.log(shipOne.location)
 console.log(shipOne.getHealth())
+console.log(shipOne.getStatus('A1'))
 
