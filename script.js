@@ -1,19 +1,19 @@
 const Ship = function Ship(length, ...coords) {
     //Set location object property
-    let location = [];
     const Location = function Location(coord) {
         const area = coord;
         let status = 1;
-        return {area, status}
+        return {area, status};
     };
-    coords.forEach(e => location.push(e = Location(e)));
+    let location = [];
+        coords.forEach(e => location.push(e = Location(e)));
     const hit = (coord) => {
         hitArea = location.filter(e => e.area == coord);
         hitArea[0].status = 0;
     };
     //Checks for Ship's overall health
     const getHealth = () => {
-        let health = []
+        let health = [];
         location.forEach(e => health.push(e.status));
         health = health.reduce((sum, amount) => sum + amount);
         return health;
@@ -21,26 +21,27 @@ const Ship = function Ship(length, ...coords) {
     //Checks for Ship's individual area health
     const getStatus = (coord) => {
         const area = location.filter(e => e.area == coord);
-        console.log(`Area:${area[0].area}'s hp is ${area[0].status}`)
+        console.log(`Area:${area[0].area}'s hp is ${area[0].status}`);
         return area[0].status;
     }; 
     const isSunk = () => {
-        if (getHealth() === 0) console.log("Ship is sunk");//For debug
+        if (getHealth() === 0) console.log("Ship is sunk");
         return (getHealth() === 0);  
     };
     return {getHealth, getStatus, isSunk, hit, location, coords};
-}
-        
+}     
 const Gameboard = function Gameboard() {
-    let totalShips = []; //stores all Ship objects
-
+    let totalShips = []; //stores all Ship objects 
     const makeShip = (length, ...coords) => {
         newShip = Ship(length, ...coords);
         totalShips.push(newShip);
-    }
-
-    let validCoords = []; //stores coords of Ship' locations
-
+    };
+    let validCoords = [] //stores all Ship locations
+    const getValidCoords = () => {
+        totalShips.forEach(e => validCoords.push(e.coords));
+        validCoords = validCoords.flat();
+        return validCoords;
+    };
     const receiveAttack = (coord) => {
         if (Ship.status === 0) {
             //already hit
@@ -52,9 +53,8 @@ const Gameboard = function Gameboard() {
             //missed 
         }
     }
-    return {};
+    return {totalShips, makeShip, getValidCoords};
 }
-
 //Generates all possible coordinates in a 10x10 
 const renderCoords = function renderCoordinates() {
     let coordArray = [];
@@ -70,13 +70,18 @@ const renderCoords = function renderCoordinates() {
 }
 
 //Debug area
-const shipOne = Ship(2, 'A1', 'B2', 'A3')
- console.log(shipOne)
+// const shipOne = Ship(2, 'A1', 'B2', 'A3')
+// console.log(shipOne)
 
 
-shipOne.hit('A1')
-shipOne.hit('A3')
-console.log(shipOne.location)
-console.log(shipOne.getHealth())
-console.log(shipOne.getStatus('A1'))
+// shipOne.hit('A1')
+// shipOne.hit('A3')
+// console.log(shipOne.location)
+// console.log(shipOne.getHealth())
+
+const testBoard = Gameboard()
+testBoard.makeShip(2, 'A1', 'B2', 'A3' )
+testBoard.makeShip(5, 'C1', 'C2', 'C3' )
+console.log(testBoard.totalShips)
+console.log(testBoard.getValidCoords())
 
