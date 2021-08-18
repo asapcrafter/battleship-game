@@ -131,8 +131,8 @@ testBoard.makeShip(5, 'C1', 'C2', 'C3' )
 // console.log(testBoard.totalShips)
 // // console.log(testBoard.totalShips[0].coords.includes('A1'))
 
-const newPlayer = Player();
-console.log(newPlayer.getRandomCoord())
+// const newPlayer = Player();
+// console.log(newPlayer.getRandomCoord())
 
 
 
