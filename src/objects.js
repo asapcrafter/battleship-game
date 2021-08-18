@@ -1,3 +1,5 @@
+export {Ship, Gameboard, renderCoords}
+
 const Ship = function Ship(length, ...coords) {
     const Location = function Location(coord) {
         const area = coord;
@@ -10,7 +12,7 @@ const Ship = function Ship(length, ...coords) {
 
     const hit = (coord) => {
         if (coords.find(e => e === coord) == undefined) return;
-        hitArea = location.filter(e => e.area == coord);
+        let hitArea = location.filter(e => e.area == coord);
         hitArea[0].status = 0;
     };
 
@@ -39,7 +41,7 @@ const Gameboard = function Gameboard() {
     let totalShips = []; //stores all Ship objects 
 
     const makeShip = (length, ...coords) => {
-        newShip = Ship(length, ...coords);
+        const newShip = Ship(length, ...coords);
         totalShips.push(newShip);
     };
 
@@ -93,26 +95,26 @@ const Gameboard = function Gameboard() {
 //Generates all possible coordinates in a 10x10 
 const renderCoords = function renderCoordinates() {
     let coordArray = [];
-    for (i = 0; i < 10; i++) {
+    for (let i = 0; i < 10; i++) {
         let x = i + 1;
-        for (j = 0; j < 10; j++) {
+        for (let j = 0; j < 10; j++) {
             let y = (j+10).toString(36)
-            coord = `${x}${y}`;
+            let coord = `${x}${y}`;
             coordArray.push(coord);
         };
     };
     return coordArray;
 }
 
-//Debug area
-// const shipOne = Ship(2, 'A1', 'B2', 'A3')
-// console.log(shipOne)
+const Player = function Player() {
+    let coordArray = renderCoords()
+    const getRandomCoord = () => {
+        const randomCoord = coordArray[Math.floor(Math.random() * coordArray.length)];
+        return randomCoord;
+    };
+    return {getRandomCoord, coordArray}
+}
 
-
-// shipOne.hit('A5')
-// shipOne.hit('A3')
-// console.log(shipOne.location)
-// console.log(shipOne.getHealth())
 
 const testBoard = Gameboard()
 testBoard.makeShip(2, 'A1', 'B2', 'A3' )
@@ -123,3 +125,6 @@ console.log(testBoard.receiveAttack('A1'))
 console.log(testBoard.totalShips)
 // console.log(testBoard.totalShips[0].coords.includes('A1'))
 
+const newPlayer = Player();
+console.log(newPlayer.getRandomCoord())
+console.log(newPlayer.coordArray)

@@ -1,1 +1,2 @@
-console.log("Webpack working")
+import {Ship, Gameboard, renderCoordinates} from './objects.js'
+

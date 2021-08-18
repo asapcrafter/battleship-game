@@ -1,0 +1,41 @@
+/* CSS Reset */
+*, *::before, *::after { 
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+  }
+
+:root {
+    --gray : rgb(160, 160, 160);
+    --border-gray: rgb(165, 165, 165);
+    --light-gray : #F3F3F3;
+    --soft-lavender: #e1e8f6;
+    --dark-gray: #DCE1E3;
+    --lapis: #39a0ca;
+    --ice-blue: #a0d2eb;
+    --peach: #f3756b;
+    --coffee: #e3dbc9;
+}
+
+#content {
+    width: 100%;
+    height: 100%;
+    font-family: 'Special Elite', cursive;
+    display: flex;
+        flex-direction: column;
+        align-items: center;
+}
+
+.header {
+    width: 650px;
+    height: 150px;
+    margin-top: 45px;
+}
+
+.gameboard-grid {
+    display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        grid-template-rows: repeat(10, 1fr);
+        grid-auto-rows: auto;
+        grid-auto-columns: auto;
+}
