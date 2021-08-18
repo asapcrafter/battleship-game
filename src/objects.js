@@ -69,7 +69,7 @@ const Gameboard = function Gameboard() {
         };
         if (hitCoords.find(e => e == coord) !== undefined) {
             console.log("Already hit")
-            return;
+            return "invalid";
         };
         const matchingShip = totalShips.find(e => {
             return e.coords.includes(coord);
@@ -107,12 +107,18 @@ const renderCoords = function renderCoordinates() {
 }
 
 const Player = function Player() {
-    let coordArray = renderCoords()
+
+    const attackGameBoard = (gameboard, coord) => {
+        gameboard.receiveAttack(coord);
+    };
+
     const getRandomCoord = () => {
+        const coordArray = renderCoords()
         const randomCoord = coordArray[Math.floor(Math.random() * coordArray.length)];
         return randomCoord;
     };
-    return {getRandomCoord, coordArray}
+
+    return {getRandomCoord, attackGameBoard}
 }
 
 
@@ -121,10 +127,14 @@ testBoard.makeShip(2, 'A1', 'B2', 'A3' )
 testBoard.makeShip(5, 'C1', 'C2', 'C3' )
 // console.log(testBoard.getValidCoords())
 
-console.log(testBoard.receiveAttack('A1'))
-console.log(testBoard.totalShips)
-// console.log(testBoard.totalShips[0].coords.includes('A1'))
+// console.log(testBoard.receiveAttack('A1'))
+// console.log(testBoard.totalShips)
+// // console.log(testBoard.totalShips[0].coords.includes('A1'))
 
 const newPlayer = Player();
 console.log(newPlayer.getRandomCoord())
-console.log(newPlayer.coordArray)
+
+
+
+
+

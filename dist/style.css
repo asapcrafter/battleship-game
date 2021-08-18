@@ -32,10 +32,21 @@
     margin-top: 45px;
 }
 
-.gameboard-grid {
+.board-wrapper {
+    display: flex;
+}
+
+.board-container {
     display: grid;
         grid-template-columns: repeat(10, 1fr);
         grid-template-rows: repeat(10, 1fr);
         grid-auto-rows: auto;
         grid-auto-columns: auto;
+    height: 500px;
+    width: 500px;
+    border: black solid;
+}
+
+.board-item {
+    border: red dashed;
 }
