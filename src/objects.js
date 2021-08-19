@@ -1,4 +1,4 @@
-export {Ship, Gameboard, renderCoords}
+export {Ship, Gameboard, renderCoords, Player}
 
 const Ship = function Ship(length, ...coords) {
     const Location = function Location(coord) {
@@ -45,7 +45,7 @@ const Gameboard = function Gameboard() {
         totalShips.push(newShip);
     };
 
-    //Checks if a grid coordinate contains a Ship
+    //Checks if a grid coordinate contains a Ship (used in receiveAttack)
     const getValidCoords = () => { 
         let validCoords = []; 
         totalShips.forEach(e => validCoords.push(e.coords));
@@ -75,6 +75,7 @@ const Gameboard = function Gameboard() {
             return e.coords.includes(coord);
         });
         matchingShip.hit(coord);
+        matchingShip.isSunk();
         hitCoords.push(coord);
     };
 
@@ -107,11 +108,10 @@ const renderCoords = function renderCoordinates() {
 }
 
 const Player = function Player() {
-
     const attackGameBoard = (gameboard, coord) => {
         gameboard.receiveAttack(coord);
     };
-
+    //Returns a random coord for Computer-AI to attack with
     const getRandomCoord = () => {
         const coordArray = renderCoords()
         const randomCoord = coordArray[Math.floor(Math.random() * coordArray.length)];
@@ -122,10 +122,10 @@ const Player = function Player() {
 }
 
 
-const testBoard = Gameboard()
-testBoard.makeShip(2, 'A1', 'B2', 'A3' )
-testBoard.makeShip(5, 'C1', 'C2', 'C3' )
-// console.log(testBoard.getValidCoords())
+// const testBoard = Gameboard()
+// testBoard.makeShip(2, 'A1', 'B2', 'A3' )
+// testBoard.makeShip(5, 'C1', 'C2', 'C3' )
+// // console.log(testBoard.getValidCoords())
 
 // console.log(testBoard.receiveAttack('A1'))
 // console.log(testBoard.totalShips)
