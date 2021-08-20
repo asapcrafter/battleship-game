@@ -52,6 +52,7 @@ const Gameboard = function Gameboard() {
         validCoords = validCoords.flat();
         return validCoords;
     };
+    //Returns 'true' if the coord matches
     const checkIfValidCoord = (coord) => {
         const coordArray = getValidCoords();
         const matchingCoord = coordArray.find(e => e == coord)
@@ -65,18 +66,20 @@ const Gameboard = function Gameboard() {
         if (checkIfValidCoord(coord) === false) {
             missedCoords.push(coord);
             console.log("Missed hit")
-            return;
+            return 'missed';
         };
         if (hitCoords.find(e => e == coord) !== undefined) {
             console.log("Already hit")
-            return "invalid";
+            return 'invalid';
         };
-        const matchingShip = totalShips.find(e => {
+        let matchingShip = totalShips.find(e => {
             return e.coords.includes(coord);
         });
         matchingShip.hit(coord);
         matchingShip.isSunk();
         hitCoords.push(coord);
+        console.log('Ship was hit')
+        return 'hit';
     };
 
     const checkFleetHP = () => {
