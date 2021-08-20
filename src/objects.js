@@ -33,7 +33,6 @@ const Ship = function Ship(length, ...coords) {
         if (getHealth() === 0) console.log("Ship is sunk");
         return (getHealth() === 0);  
     };
-
     return {getHealth, getStatus, isSunk, hit, location, coords};
 } 
 
@@ -92,7 +91,6 @@ const Gameboard = function Gameboard() {
     const checkFleetSunk = () => {
         return checkFleetHP() === 0;
     };
-
     return {totalShips, makeShip, getValidCoords, checkIfValidCoord, receiveAttack, checkFleetHP, checkFleetSunk};
 }
 
@@ -120,22 +118,9 @@ const Player = function Player() {
         const randomCoord = coordArray[Math.floor(Math.random() * coordArray.length)];
         return randomCoord;
     };
-
     return {getRandomCoord, attackGameBoard}
 }
 
-
-// const testBoard = Gameboard()
-// testBoard.makeShip(2, 'A1', 'B2', 'A3' )
-// testBoard.makeShip(5, 'C1', 'C2', 'C3' )
-// // console.log(testBoard.getValidCoords())
-
-// console.log(testBoard.receiveAttack('A1'))
-// console.log(testBoard.totalShips)
-// // console.log(testBoard.totalShips[0].coords.includes('A1'))
-
-// const newPlayer = Player();
-// console.log(newPlayer.getRandomCoord())
 
 
 
